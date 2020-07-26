@@ -18,3 +18,19 @@ app.listen(app.get('port'), () => {
   console.log(`${app.locals.title} is running on ${app.get('port')}.`)
 })
 
+app.post('/api/v1/scores', (request, response) => {
+  const { initials, score } = request.body
+  const scoreID = Date.now()
+
+  for(let requiredParameter of ['initials', 'score']) {
+    if (!request.body[requiredParameter]) {
+      return response 
+        .status(422)
+        .send({ error: `Expected format { initials: <string>, score: <number> }.  You are missing a required parameter of ${requiredParameter}.`})
+    }
+  }
+
+  app.locals.scores.push({ scoreID, initials, score })
+  response.status(201).json({ scoreID, initials, score })
+})
+
