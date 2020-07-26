@@ -34,3 +34,6 @@ app.post('/api/v1/scores', (request, response) => {
   response.status(201).json({ scoreID, initials, score })
 })
 
+app.get('/api/v1/scores', (request, response) => {
+  response.status(200).json(app.locals.scores)
+})
