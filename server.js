@@ -8,7 +8,7 @@ app.locals.title = 'Trivia Game'
 app.use(cors())
 app.use(express.json())
 
-app.locals.scores = []
+app.locals.scores = {scores: [{id: 1, initials: 'ABC', score: 69}, {id: 1, initials: 'DEF', score: 10}]}
 
 app.get('/', (request, response) => {
   response.send('Trivia Game API')
@@ -30,7 +30,7 @@ app.post('/api/v1/scores', (request, response) => {
     }
   }
 
-  app.locals.scores.push({ scoreID, initials, score })
+  app.locals.scores.scores.push({ scoreID, initials, score })
   response.status(201).json({ scoreID, initials, score })
 })
 
